@@ -97,7 +97,7 @@ function launch_pipeline_web($pipeline, $release) {
         $gh_launch_schema_json = file_get_contents($gh_pipeline_schema_fn);
     } else {
         $api_opts = stream_context_create(['http' => ['method' => 'GET', 'header' => ['User-Agent: PHP']]]);
-        $gh_launch_schema_url = "https://api.github.com/repos/nf-core/{$pipeline}/contents/nextflow_schema.json?ref={$release}";
+        $gh_launch_schema_url = "https://api.github.com/repos/nf-rhinosys/{$pipeline}/contents/nextflow_schema.json?ref={$release}";
         $gh_launch_schema_json = file_get_contents($gh_launch_schema_url, false, $api_opts);
         if (strpos($http_response_header[0], 'HTTP/1.1 200') === false) {
             # Remember for next time
@@ -972,4 +972,3 @@ ob_start();
     ob_end_clean();
 
     include '../includes/footer.php';
-

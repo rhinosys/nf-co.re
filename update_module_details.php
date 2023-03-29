@@ -72,7 +72,7 @@ function github_query($gh_query_url) {
 //  nf-core modules table
 //
 
-$gh_modules = github_query('https://api.github.com/repos/nf-core/modules/git/trees/master?recursive=1');
+$gh_modules = github_query('https://api.github.com/repos/nf-rhinosys/modules/git/trees/master?recursive=1');
 $modules = [];
 foreach ($gh_modules['tree'] as $f) {
     if (substr($f['path'], -8) == 'meta.yml' && substr($f['path'], 0, 8) == 'modules/') {
@@ -188,7 +188,7 @@ if ($stmt = mysqli_prepare($conn, $sql)) {
 //  nf-core pipelines table
 //
 
-$gh_pipelines = github_query('https://api.github.com/orgs/nf-core/repos?per_page=100');
+$gh_pipelines = github_query('https://api.github.com/orgs/nf-rhinosys/repos?per_page=100');
 $ignored_repos = parse_ini_file('ignored_repos.ini')['repos'];
 
 // Drop existing table if query was successful
@@ -257,7 +257,7 @@ if ($stmt = mysqli_prepare($conn, $sql)) {
         $gh_pushed_at = date('Y-m-d H:i:s', strtotime($pipeline['pushed_at']));
         $stargazers_count = $pipeline['stargazers_count'];
         $watchers_count = count(
-            github_query('https://api.github.com/repos/nf-core/' . $pipeline['name'] . '/watchers'),
+            github_query('https://api.github.com/repos/nf-rhinosys/' . $pipeline['name'] . '/watchers'),
         );
         $forks_count = $pipeline['forks_count'];
         $open_issues_count = $pipeline['open_issues_count'];
@@ -364,7 +364,7 @@ $sql = 'INSERT INTO pipelines_modules (pipeline_id,module_id) VALUES (?,?)';
 
 foreach ($pipelines as $pipeline) {
     $modules_json = github_query(
-        'https://api.github.com/repos/nf-core/' . $pipeline['name'] . '/contents/modules.json',
+        'https://api.github.com/repos/nf-rhinosys/' . $pipeline['name'] . '/contents/modules.json',
     );
     $modules_json = json_decode(base64_decode($modules_json['content']), true);
     $modules = $modules_json['repos']['nf-core/modules'];

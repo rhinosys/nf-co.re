@@ -24,19 +24,16 @@ include '../includes/header.php';
 <p>We use a few different tools to organise the nf-core community -
     you are welcome to join us at any or all!</p>
 <p class="text-center">
-  <a href="https://nf-co.re/join/slack" class="mb-2 me-3 btn btn-lg btn-dark" style="background-color: #4a154b;">
+  <a href="https://wise2cloud/join/slack" class="mb-2 me-3 btn btn-lg btn-dark" style="background-color: #4a154b;">
     <i class="fab fa-slack"></i> Slack
   </a>
-  <a href="https://github.com/nf-core" class="mb-2 me-3 btn btn-lg btn-dark">
+  <a href="https://github.com/rhinosys" class="mb-2 me-3 btn btn-lg btn-dark">
     <i class="fab fa-github"></i> GitHub
   </a>
-  <a href="https://twitter.com/nf_core" class="mb-2 me-3 btn btn-lg btn-info" style="background-color: #4AA1EB;">
+  <a href="https://twitter.com/rhinosys" class="mb-2 me-3 btn btn-lg btn-info" style="background-color: #4AA1EB;">
     <i class="fab fa-twitter"></i> twitter
   </a>
-  <a href="https://mstdn.science/@nf_core" class="mb-2 me-3 btn btn-lg btn-info" style="background-color: #6364ff;">
-    <i class="fab fa-mastodon"></i> mastodon
-  </a>
-  <a href="https://www.youtube.com/c/nf-core" class="mb-2 me-3 btn btn-lg btn-danger" style="background-color: #EA3C1E;">
+  <a href="https://www.youtube.com/c/rhinosys" class="mb-2 me-3 btn btn-lg btn-danger" style="background-color: #EA3C1E;">
     <i class="fab fa-youtube"></i> YouTube
   </a>
 </p>
@@ -77,7 +74,7 @@ We use it to provide help to people running nf-core pipelines, as well as discus
 </p>
 <p>We use GitHub to manage all of the code written for nf-core.
 It's a fantastic platform and provides a huge number of tools.
-We have a GitHub organisation called <a href="https://github.com/nf-core/">nf-core</a> which we use to give access to
+We have a GitHub organisation called <a href="https://github.com/rhinosys/">nf-core</a> which we use to give access to
 collaborators for editing and reviewing code.</p>
 <p>To join the GitHub organisation, please introduce yourself and what you want to work on in nf-core on the <a href="https://nfcore.slack.com/channels/github-invitations"><code>#github-invitations</code> Slack channel</a> and we'll send an invite.</p>
 

@@ -169,7 +169,7 @@ class RepoHealth {
             if (file_exists($this->gh_repo_cache) && !$this->refresh) {
                 $this->gh_repo = json_decode(file_get_contents($this->gh_repo_cache));
             } else {
-                $gh_repo_url = 'https://api.github.com/repos/nf-core/' . $this->name;
+                $gh_repo_url = 'https://api.github.com/repos/nf-rhinosys/' . $this->name;
                 $this->gh_repo = json_decode(file_get_contents($gh_repo_url, false, GH_API_OPTS));
                 $this->_save_cache_data($this->gh_repo_cache, $this->gh_repo);
             }
@@ -181,7 +181,7 @@ class RepoHealth {
         if (file_exists($this->gh_release_cache) && !$this->refresh) {
             $this->gh_release = json_decode(file_get_contents($this->gh_release_cache));
         } else {
-            $gh_release_url = 'https://api.github.com/repos/nf-core/' . $this->name . '/releases/latest';
+            $gh_release_url = 'https://api.github.com/repos/nf-rhinosys/' . $this->name . '/releases/latest';
             $this->gh_release = json_decode(file_get_contents($gh_release_url, false, GH_API_OPTS));
             $this->_save_cache_data($this->gh_release_cache, $this->gh_release);
         }
@@ -192,7 +192,7 @@ class RepoHealth {
         if (file_exists($this->gh_all_branches_cache) && !$this->refresh) {
             $this->gh_branches = json_decode(file_get_contents($this->gh_all_branches_cache));
         } else {
-            $gh_branch_url = 'https://api.github.com/repos/nf-core/' . $this->name . '/branches';
+            $gh_branch_url = 'https://api.github.com/repos/nf-rhinosys/' . $this->name . '/branches';
             $this->gh_branches = json_decode(@file_get_contents($gh_branch_url, false, GH_API_OPTS));
             $this->_save_cache_data($this->gh_all_branches_cache, $this->gh_branches);
         }
@@ -208,7 +208,7 @@ class RepoHealth {
                 }
             } else {
                 $gh_branch_url =
-                    'https://api.github.com/repos/nf-core/' . $this->name . '/branches/' . $branch . '/protection';
+                    'https://api.github.com/repos/nf-rhinosys/' . $this->name . '/branches/' . $branch . '/protection';
                 $gh_branch = json_decode(@file_get_contents($gh_branch_url, false, GH_API_OPTS));
                 if (strpos($http_response_header[0], 'HTTP/1.1 200') !== false && is_object($gh_branch)) {
                     $this->{'gh_branch_' . $branch} = $gh_branch;
@@ -402,7 +402,7 @@ class RepoHealth {
             $payload['homepage'] = $this->web_url;
         }
         if (count($payload) > 0) {
-            $gh_edit_repo_url = 'https://api.github.com/repos/nf-core/' . $this->name;
+            $gh_edit_repo_url = 'https://api.github.com/repos/nf-rhinosys/' . $this->name;
             $updated_data = $this->_send_gh_api_data($gh_edit_repo_url, $payload, 'PATCH');
             if ($updated_data) {
                 $this->gh_repo = $updated_data;
@@ -417,7 +417,7 @@ class RepoHealth {
             $topics = [
                 'names' => array_values(array_unique(array_merge($this->gh_repo->topics, $this->required_topics))),
             ];
-            $gh_edit_topics_url = 'https://api.github.com/repos/nf-core/' . $this->name . '/topics';
+            $gh_edit_topics_url = 'https://api.github.com/repos/nf-rhinosys/' . $this->name . '/topics';
             $updated_data = $this->_send_gh_api_data($gh_edit_topics_url, $topics, 'PUT');
             if ($updated_data) {
                 $this->gh_repo->topics = $updated_data->names;
@@ -441,7 +441,7 @@ class RepoHealth {
             if ($team == 'all') {
                 $payload = ['permission' => 'push'];
             }
-            $gh_edit_team_url = 'https://api.github.com/teams/' . $gh_team_ids[$team] . '/repos/nf-core/' . $this->name;
+            $gh_edit_team_url = 'https://api.github.com/teams/' . $gh_team_ids[$team] . '/repos/nf-rhinosys/' . $this->name;
             if ($this->_send_gh_api_data($gh_edit_team_url, $payload, 'PUT')) {
                 $updated_teams[$team] = true;
             }
@@ -496,7 +496,7 @@ class RepoHealth {
                     'restrictions' => null,
                 ];
                 $gh_edit_branch_protection_url =
-                    'https://api.github.com/repos/nf-core/' . $this->name . '/branches/' . $branch . '/protection';
+                    'https://api.github.com/repos/nf-rhinosys/' . $this->name . '/branches/' . $branch . '/protection';
                 $updated_data = $this->_send_gh_api_data($gh_edit_branch_protection_url, $payload, 'PUT');
                 if ($updated_data) {
                     $this->{'gh_branch_' . $branch} = $updated_data;
@@ -521,7 +521,7 @@ class RepoHealth {
                 ];
                 // Push to GitHub API
                 $gh_template_branch_protection_url =
-                    'https://api.github.com/repos/nf-core/' . $this->name . '/branches/TEMPLATE/protection';
+                    'https://api.github.com/repos/nf-rhinosys/' . $this->name . '/branches/TEMPLATE/protection';
                 $updated_data = $this->_send_gh_api_data($gh_template_branch_protection_url, $payload, 'PUT');
                 if ($updated_data) {
                     $this->gh_branch_TEMPLATE = $updated_data;
@@ -672,10 +672,10 @@ class PipelineHealth extends RepoHealth {
         // No releases - always check the dev branch (no caching)
         if (!$this->has_release) {
             $this->has_json_schema = $this->check_url(
-                'https://raw.githubusercontent.com/nf-core/' . $this->name . '/dev/nextflow_schema.json',
+                'https://raw.githubusercontent.com/nf-rhinosys/' . $this->name . '/dev/nextflow_schema.json',
             );
             $this->has_dsl2_modules_dir = $this->check_url(
-                'https://github.com/nf-core/' . $this->name . '/tree/dev/modules',
+                'https://api.github.com/nf-rhinosys/' . $this->name . '/tree/dev/modules',
             );
         }
 
@@ -691,14 +691,14 @@ class PipelineHealth extends RepoHealth {
             } else {
                 // Check if the files exist
                 $this->has_json_schema = $this->check_url(
-                    'https://raw.githubusercontent.com/nf-core/' .
+                    'https://raw.githubusercontent.com/nf-rhinosys/' .
                         $this->name .
                         '/' .
                         $this->last_release->tag_name .
                         '/nextflow_schema.json',
                 );
                 $this->has_dsl2_modules_dir = $this->check_url(
-                    'https://github.com/nf-core/' . $this->name . '/tree/' . $this->last_release->tag_name . '/modules',
+                    'https://api.github.com/nf-rhinosys/' . $this->name . '/tree/' . $this->last_release->tag_name . '/modules',
                 );
                 // Save the cache
                 $files_404_cache = [
@@ -712,7 +712,7 @@ class PipelineHealth extends RepoHealth {
         if (file_exists($this->gh_all_branches_cache) && !$this->refresh) {
             $this->gh_branches = json_decode(file_get_contents($this->gh_all_branches_cache));
         } else {
-            $gh_branch_url = 'https://api.github.com/repos/nf-core/' . $this->name . '/branches';
+            $gh_branch_url = 'https://api.github.com/repos/nf-rhinosys/' . $this->name . '/branches';
             $this->gh_branches = json_decode(@file_get_contents($gh_branch_url, false, GH_API_OPTS));
             $this->_save_cache_data($this->gh_all_branches_cache, $this->gh_branches);
         }
@@ -768,7 +768,7 @@ function get_gh_team_repos($team) {
     if (file_exists($gh_teams_cache) && !is_refresh_cache(null, true)) {
         $gh_team = json_decode(file_get_contents($gh_teams_cache));
     } else {
-        $gh_team_url = 'https://api.github.com/orgs/nf-core/teams/' . $team;
+        $gh_team_url = 'https://api.github.com/orgs/nf-rhinosys/teams/' . $team;
         $gh_team = json_decode(file_get_contents($gh_team_url, false, GH_API_OPTS));
 
         // Save for next time
@@ -932,33 +932,33 @@ $base_test_descriptions = [
     'branch_template_restrict_push' => 'Restrict push to TEMPLATE to @nf-core-bot',
 ];
 $base_test_urls = [
-    'repo_wikis' => 'https://github.com/nf-core/{repo}/settings',
-    'repo_issues' => 'https://github.com/nf-core/{repo}/settings',
-    'repo_merge_commits' => 'https://github.com/nf-core/{repo}/settings',
-    'repo_merge_rebase' => 'https://github.com/nf-core/{repo}/settings',
-    'repo_merge_squash' => 'https://github.com/nf-core/{repo}/settings',
-    'repo_default_branch' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'repo_keywords' => 'https://github.com/nf-core/{repo}',
-    'repo_description' => 'https://github.com/nf-core/{repo}',
-    'repo_url' => 'https://github.com/nf-core/{repo}',
-    'team_all' => 'https://github.com/nf-core/{repo}/settings/collaboration',
-    'team_core' => 'https://github.com/nf-core/{repo}/settings/collaboration',
-    'branch_master_exists' => 'https://github.com/nf-core/{repo}/branches',
-    'branch_dev_exists' => 'https://github.com/nf-core/{repo}/branches',
-    'branch_template_exists' => 'https://github.com/nf-core/{repo}/branches',
-    'branch_master_strict_updates' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_master_required_ci' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_master_stale_reviews' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_master_code_owner_reviews' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_master_required_num_reviews' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_master_enforce_admins' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_dev_strict_updates' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_dev_required_ci' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_dev_stale_reviews' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_dev_code_owner_reviews' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_dev_required_num_reviews' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_dev_enforce_admins' => 'https://github.com/nf-core/{repo}/settings/branches',
-    'branch_template_restrict_push' => 'https://github.com/nf-core/{repo}/settings/branches',
+    'repo_wikis' => 'https://api.github.com/nf-rhinosys/{repo}/settings',
+    'repo_issues' => 'https://api.github.com/nf-rhinosys/{repo}/settings',
+    'repo_merge_commits' => 'https://api.github.com/nf-rhinosys/{repo}/settings',
+    'repo_merge_rebase' => 'https://api.github.com/nf-rhinosys/{repo}/settings',
+    'repo_merge_squash' => 'https://api.github.com/nf-rhinosys/{repo}/settings',
+    'repo_default_branch' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'repo_keywords' => 'https://api.github.com/nf-rhinosys/{repo}',
+    'repo_description' => 'https://api.github.com/nf-rhinosys/{repo}',
+    'repo_url' => 'https://api.github.com/nf-rhinosys/{repo}',
+    'team_all' => 'https://api.github.com/nf-rhinosys/{repo}/settings/collaboration',
+    'team_core' => 'https://api.github.com/nf-rhinosys/{repo}/settings/collaboration',
+    'branch_master_exists' => 'https://api.github.com/nf-rhinosys/{repo}/branches',
+    'branch_dev_exists' => 'https://api.github.com/nf-rhinosys/{repo}/branches',
+    'branch_template_exists' => 'https://api.github.com/nf-rhinosys/{repo}/branches',
+    'branch_master_strict_updates' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_master_required_ci' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_master_stale_reviews' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_master_code_owner_reviews' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_master_required_num_reviews' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_master_enforce_admins' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_dev_strict_updates' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_dev_required_ci' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_dev_stale_reviews' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_dev_code_owner_reviews' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_dev_required_num_reviews' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_dev_enforce_admins' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
+    'branch_template_restrict_push' => 'https://api.github.com/nf-rhinosys/{repo}/settings/branches',
 ];
 $base_merge_table_col_headings = [
     'Team access' => ['team_all', 'team_core'],
@@ -1001,11 +1001,11 @@ $pipeline_test_descriptions =
 $pipeline_test_descriptions['repo_url'] = 'URL should be set to https://nf-co.re/[PIPELINE-NAME]';
 $pipeline_test_urls =
     [
-        'has_release' => 'https://github.com/nf-core/{repo}/releases',
-        'release_after_tools' => 'https://github.com/nf-core/{repo}/releases/{latest-tag}',
-        'master_is_release' => 'https://github.com/nf-core/{repo}/compare/{latest-tag}...master',
-        'has_json_schema' => 'https://github.com/nf-core/{repo}',
-        'has_dsl2_modules_dir' => 'https://github.com/nf-core/{repo}',
+        'has_release' => 'https://api.github.com/nf-rhinosys/{repo}/releases',
+        'release_after_tools' => 'https://api.github.com/nf-rhinosys/{repo}/releases/{latest-tag}',
+        'master_is_release' => 'https://api.github.com/nf-rhinosys/{repo}/compare/{latest-tag}...master',
+        'has_json_schema' => 'https://api.github.com/nf-rhinosys/{repo}',
+        'has_dsl2_modules_dir' => 'https://api.github.com/nf-rhinosys/{repo}',
     ] + $base_test_urls;
 $pipeline_merge_table_col_headings = $base_merge_table_col_headings;
 

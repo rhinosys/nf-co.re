@@ -74,10 +74,10 @@ if (isset($subfooter) and $subfooter) {
             <a rel="me" href="https://nfcore.slack.com/" target="_blank" title="Slack" data-bs-toggle="tooltip" data-bs-placement="bottom">
               <img src="/assets/img/slack.svg" />
             </a>
-            <a rel="me" href="https://github.com/nf-core/" target="_blank" class="social-github" title="GitHub" data-bs-toggle="tooltip" data-bs-placement="bottom">
+            <a rel="me" href="https://github.com/nf-rhinosys/" target="_blank" class="social-github" title="GitHub" data-bs-toggle="tooltip" data-bs-placement="bottom">
               <img src="/assets/img/github.svg" />
             </a>
-            <a rel="me" href="https://twitter.com/nf_core" target="_blank" title="Twitter" data-bs-toggle="tooltip" data-bs-placement="bottom">
+            <a rel="me" href="https://twitter.com/nf-rhinosys" target="_blank" title="Twitter" data-bs-toggle="tooltip" data-bs-placement="bottom">
               <img src="/assets/img/twitter.svg" />
             </a>
             <a rel="me" href="https://mstdn.science/@nf_core" target="_blank" title="Mastodon" data-bs-toggle="tooltip" data-bs-placement="bottom">

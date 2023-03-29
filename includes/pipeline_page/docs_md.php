@@ -41,7 +41,7 @@ if (file_exists($local_md_fn)) {
 # Configs to make relative URLs work
 $href_url_prepend = '/' . $pipeline->name . '/' . $release . '/' . dirname($filename) . '/';
 $href_url_prepend = preg_replace('/\/\/+/', '/', $href_url_prepend);
-$src_url_prepend = 'https://raw.githubusercontent.com/nf-core' . $href_url_prepend;
+$src_url_prepend = 'https://raw.githubusercontent.com/nf-rhinosys' . $href_url_prepend;
 $href_url_suffix_cleanup = '\.md';
 
 # Footer link

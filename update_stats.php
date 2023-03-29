@@ -128,7 +128,7 @@ if ($stmt = mysqli_prepare($conn, $sql)) {
     foreach ($pipelines as $idx => $pipeline) {
         // get contributors
         $gh_contributors = github_query(
-            'https://api.github.com/repos/nf-core/' . $pipeline['name'] . '/stats/contributors',
+            'https://api.github.com/repos/nf-rhinosys/' . $pipeline['name'] . '/stats/contributors',
         );
         foreach ($gh_contributors as $contributor) {
             $pipeline_id = $pipeline['id'];
@@ -192,8 +192,8 @@ if ($stmt = mysqli_prepare($conn, $sql)) {
     mysqli_stmt_bind_param($stmt, 'iiiiis', $pipeline_id, $views, $views_uniques, $clones, $clones_uniques, $timestamp);
 
     foreach ($pipelines as $idx => $pipeline) {
-        $gh_views = github_query('https://api.github.com/repos/nf-core/' . $pipeline['name'] . '/traffic/views');
-        $gh_clones = github_query('https://api.github.com/repos/nf-core/' . $pipeline['name'] . '/traffic/clones');
+        $gh_views = github_query('https://api.github.com/repos/nf-rhinosys/' . $pipeline['name'] . '/traffic/views');
+        $gh_clones = github_query('https://api.github.com/repos/nf-rhinosys/' . $pipeline['name'] . '/traffic/clones');
         foreach ($gh_views['views'] as $gh_view) {
             $timestamp = date('Y-m-d H:i:s', strtotime($gh_view['timestamp']));
             $check =
@@ -339,7 +339,7 @@ foreach (array_keys($results['pipelines']) as $wfname) {
 
 // Get the current number of organisation members
 // Returns 30 results per page!
-$gh_members_url = 'https://api.github.com/orgs/nf-core/members';
+$gh_members_url = 'https://api.github.com/orgs/nf-rhinosys/members';
 $results['gh_org_members'][$updated] = 0;
 $first_page = true;
 $next_page = false;
@@ -369,7 +369,7 @@ while ($first_page || $next_page) {
 }
 
 // Fetch all repositories at nf-core
-$gh_repos_url = 'https://api.github.com/orgs/nf-core/repos?per_page=100';
+$gh_repos_url = 'https://api.github.com/orgs/nf-rhinosys/repos?per_page=100';
 $gh_repos = json_decode(file_get_contents($gh_repos_url, false, $gh_api_opts));
 if (strpos($http_response_header[0], 'HTTP/1.1 200') === false) {
     var_dump($http_response_header);
@@ -397,7 +397,7 @@ foreach ($gh_repos as $repo) {
         'archived' => $repo->archived,
     ];
     // Annoyingly, two values are only available if we query for just this repo
-    $gh_repo_url = 'https://api.github.com/repos/nf-core/' . $repo->name;
+    $gh_repo_url = 'https://api.github.com/repos/nf-rhinosys/' . $repo->name;
     $gh_repo = json_decode(file_get_contents($gh_repo_url, false, $gh_api_opts));
     if (strpos($http_response_header[0], 'HTTP/1.1 200') === false) {
         var_dump($http_response_header);
@@ -412,7 +412,7 @@ foreach ($gh_repos as $repo) {
 foreach (['pipelines', 'core_repos'] as $repo_type) {
     foreach ($results[$repo_type] as $repo_name => $repo_stats) {
         // Views
-        $gh_views_url = 'https://api.github.com/repos/nf-core/' . $repo_name . '/traffic/views';
+        $gh_views_url = 'https://api.github.com/repos/nf-rhinosys/' . $repo_name . '/traffic/views';
         $gh_views = json_decode(file_get_contents($gh_views_url, false, $gh_api_opts));
         if (strpos($http_response_header[0], 'HTTP/1.1 200') === false) {
             // Pipelines are removed from the cache earlier as we know their names
@@ -431,7 +431,7 @@ foreach (['pipelines', 'core_repos'] as $repo_type) {
             $results[$repo_type][$repo_name]['views_uniques'][$view->timestamp] = $view->uniques;
         }
         // Clones
-        $gh_clones_url = 'https://api.github.com/repos/nf-core/' . $repo_name . '/traffic/clones';
+        $gh_clones_url = 'https://api.github.com/repos/nf-rhinosys/' . $repo_name . '/traffic/clones';
         $gh_clones = json_decode(file_get_contents($gh_clones_url, false, $gh_api_opts));
         if (strpos($http_response_header[0], 'HTTP/1.1 200') === false) {
             var_dump($http_response_header);
@@ -443,7 +443,7 @@ foreach (['pipelines', 'core_repos'] as $repo_type) {
             $results[$repo_type][$repo_name]['clones_uniques'][$clone->timestamp] = $clone->uniques;
         }
         // Contributors
-        $gh_contributors_url = 'https://api.github.com/repos/nf-core/' . $repo_name . '/stats/contributors';
+        $gh_contributors_url = 'https://api.github.com/repos/nf-rhinosys/' . $repo_name . '/stats/contributors';
         $gh_contributors_raw = file_get_contents($gh_contributors_url, false, $gh_api_opts);
         file_put_contents($contribs_fn_root . $repo_name . '.json', $gh_contributors_raw);
         $gh_contributors = json_decode($gh_contributors_raw);

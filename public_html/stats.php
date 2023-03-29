@@ -324,8 +324,8 @@ foreach (array_keys($stats_total['pipelines']) as $akey) {
     <h2 class="mt-0" id="gh_orgmembers">GitHub organisation members<a href="#gh_orgmembers" class="header-link"><span class="fas fa-link" aria-hidden="true"></span></a></h2>
     <p>We use GitHub to manage all of the code written for nf-core.
     It's a fantastic platform and provides a huge number of tools.
-    We have a GitHub organisation called <a href="https://github.com/nf-core/">nf-core</a> which anyone can join:
-    drop us a note <a href="https://github.com/nf-core/nf-co.re/issues/3">here</a> or anywhere and we'll send you an invite.
+    We have a GitHub organisation called <a href="https://github.com/nf-rhinosys/">nf-core</a> which anyone can join:
+    drop us a note <a href="https://github.com/rhinosys/nf-co.re/issues/3">here</a> or anywhere and we'll send you an invite.
     </p>
     <p>It's not required to be a member of the nf-core GitHub organisation to contribute.
     However, members get the nf-core logo listed on their profile page and full write-access to all nf-core repositories.
@@ -333,7 +333,7 @@ foreach (array_keys($stats_total['pipelines']) as $akey) {
     <div class="card bg-body mt-4">
       <div class="card-body">
         <canvas id="gh_orgmembers_plot" height="150"></canvas>
-        <p class="card-text small text-muted mt-3 mb-1"><i class="fas fa-exclamation-triangle"></i> By default, organisation membership is private. This is why you'll see a lower number if you visit the <a href="https://github.com/nf-core/">nf-core organisation page</a> and are not a member.
+        <p class="card-text small text-muted mt-3 mb-1"><i class="fas fa-exclamation-triangle"></i> By default, organisation membership is private. This is why you'll see a lower number if you visit the <a href="https://github.com/nf-rhinosys/">nf-core organisation page</a> and are not a member.
         <p class="card-text small text-muted"><a href="#" data-bs-target="gh_orgmembers" class="dl_plot_svg text-muted"><i class="fas fa-download"></i> Download as SVG</a> &nbsp;/&nbsp; <a href="#" data-bs-target="gh_orgmembers" class="reset_chart_zoom text-muted"><i class="fas fa-search-minus"></i> Reset zoom</a></p>
       </div>
     </div>

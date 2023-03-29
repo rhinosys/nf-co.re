@@ -2,7 +2,7 @@
 $title = 'Publications';
 $subtitle = 'Publications about the nf-core project and its pipelines';
 $markdown_fn = '../markdown/publications.md';
-$md_github_url = 'https://github.com/nf-core/nf-co.re/blob/master/markdown/publications.md';
+$md_github_url = 'https://github.com/rhinosys/nf-co.re/blob/master/markdown/publications.md';
 
 $altmetric_pattern = '/<!-- pub-stats (\S+) -->/';
 $altmetric_html = '
